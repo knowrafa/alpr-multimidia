@@ -1,6 +1,7 @@
 import numpy as np
 import cv2
 import sys
+import os
 from operator import itemgetter
 
 frame = cv2.imread(sys.argv[1], cv2.IMREAD_COLOR)
@@ -62,6 +63,9 @@ imgsvector = sorted(imgsvector, key=itemgetter(0), reverse=True)
 imgsvector = imgsvector[0:qt_characters]
 imgsvector = sorted(imgsvector, key=itemgetter(2))
 
+if not os.path.exists("output"):
+    os.makedirs("output")
+    
 for imgpos in imgsvector:
 	cv2.imwrite("output/" + str(imgpos[2]) + ".png", imgpos[1])
 
