@@ -13,7 +13,7 @@ if not os.path.exists("output"):
 if not os.path.exists("output/all_outputs"):
     os.makedirs("output/all_outputs")
 
-path = "/home/elrafa/alpr-multimidia/imagesALPR/"
+path = "./../imagesALPR/"
 files = os.listdir(path)
 for file2 in files:
     print(file2)
