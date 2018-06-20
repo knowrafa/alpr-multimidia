@@ -49,6 +49,36 @@ for file2 in files:
 
     if not os.path.exists("output/" + file):
 	    os.makedirs("output/" + file)
+
+    _, contours,_ = cv2.findContours(new_frame2, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    imgsvector = []
+    qt_characters = 7
+    for contour in contours:
+    	area = cv2.contourArea(contour)
+    	if area > 250:
+    		#cv2.drawContours(frame,contour,-1,(0,0,255),3) #desenha o contorno. Linha comentada pois estou desenhando retangulos em baixo
+
+    		#rect = cv2.minAreaRect(contour) #pega o retangulo minimo
+    		#box = cv2.boxPoints(rect) #pontos da box
+    		#box = np.int0(box) #converte pra int0
+    		#if abs(box[0][0]-box[2][0])>70: continue #se a largura for maior que 70
+    		#cv2.drawContours(frame,[box],-1,(0,255,0),1) #desenha
+    		x,y,w,h = cv2.boundingRect(contour) #boundingboxes
+    		if w > (2*h):
+    			continue
+    		cv2.rectangle(frame, (x,y), (x+w,y+h), (0,255,0), 2) #desenha retangulo
+    		crop_img = new_frame2[y:y+h, x:x+w] #corta o retangulo
+    		numero = x+y #variavel pra controlar o nome dos caracteres segmentados
+    		crop_imgTuple = (area, crop_img, numero)
+    		imgsvector.append(crop_imgTuple)
+
+    imgsvector = sorted(imgsvector, key=itemgetter(0), reverse=True)
+    imgsvector = imgsvector[0:qt_characters]
+    imgsvector = sorted(imgsvector, key=itemgetter(2))
+
+    for imgpos in imgsvector:
+        cv2.imwrite("output/"+ file + "/" + str(imgpos[2]) + ".png", imgpos[1])
+
     cv2.imwrite("output/" + file + "/" + file + "1.jpg", new_frame2)
     cv2.imwrite("output/" + file + "/" + file + "2.jpg", frame)
     cv2.imwrite("output/all_outputs/" + file + ".jpg", new_frame2)
