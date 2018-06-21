@@ -4,7 +4,7 @@ from sklearn.externals import joblib
 
 # load the model
 current_dir = os.path.dirname(os.path.realpath(__file__))
-model_dir = os.path.join(current_dir, 'models/models/SVC_model.pkl')
+model_dir = os.path.join(current_dir, 'models/svc/SVC_model.pkl')
 model = joblib.load(model_dir)
 
 classification_result = []
@@ -17,6 +17,7 @@ print(classification_result)
 
 plate_string = ''
 for eachPredict in classification_result:
-    plate_string += eachPredict[0]
+    #plate_string += (eachPredict[0])
+    plate_string += (str(eachPredict[0]).split("'")[1])
 
 print(plate_string)
