@@ -4,7 +4,7 @@ from sklearn.externals import joblib
 
 # load the model
 current_dir = os.path.dirname(os.path.realpath(__file__))
-model_dir = os.path.join(current_dir, 'models/SVC_model/SVC_model.pkl')
+model_dir = os.path.join(current_dir, 'models/models/SVC_model.pkl')
 model = joblib.load(model_dir)
 
 classification_result = []
