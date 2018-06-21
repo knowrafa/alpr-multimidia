@@ -52,7 +52,7 @@ for file2 in files:
 
     _, contours,_ = cv2.findContours(new_frame2, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     imgsvector = []
-    qt_characters = 7
+    qt_characters = 10
     for contour in contours:
     	area = cv2.contourArea(contour)
     	if area > 250:

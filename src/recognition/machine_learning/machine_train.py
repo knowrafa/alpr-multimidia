@@ -25,7 +25,7 @@ def read_training_data(training_directory):
             image_data.append(flat_bin_image)
             target_data.append(each_letter)
 
-    return (np.array(image_data), np.array(target_data))
+    return (np.array(image_data, dtype=object), np.array(target_data, dtype=object))
 
 def cross_validation(model, num_of_fold, train_data, train_label):
     accuracy_result = cross_val_score(model, train_data, train_label, cv=num_of_fold)
@@ -43,7 +43,7 @@ image_data, target_data = read_training_data(training_dataset_dir)
 
 svc_model = SVC(kernel='linear', probability=True)
 
-cross_validation(svc_model, 7, image_data, target_data)
+cross_validation(svc_model, 4, image_data, target_data)
 
 svc_model.fit(image_data, target_data)
 
