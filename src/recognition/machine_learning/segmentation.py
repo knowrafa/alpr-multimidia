@@ -3,7 +3,8 @@ from skimage.io import imread
 from skimage.transform import resize
 
 
-path = 'character/plate_test_2/*.png'
+#path = 'character/plate_test_2/*.png'
+
 imgs = glob.glob(path)
 characters = []
 
