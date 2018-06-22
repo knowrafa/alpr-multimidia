@@ -34,12 +34,38 @@ for folder in ppath:
         each_character = each_character.reshape(1, -1);
         result = model.predict(each_character)
         classification_result.append(result)
-
     # print(classification_result)
 
     plate_string = ''
+    j = 1
     for eachPredict in classification_result:
-        #plate_string += (eachPredict[0])
-        plate_string += (str(eachPredict[0]).split("'")[1])
 
+        # Analise de contexto
+        if(j <= 3):
+            if (str(eachPredict[0]).split("'")[1]) == "0":
+                 plate_string += "O"
+            elif (str(eachPredict[0]).split("'")[1]) == "1":
+                plate_string += "I"
+            elif (str(eachPredict[0]).split("'")[1]) == "2":
+                plate_string += "Z"
+            elif (str(eachPredict[0]).split("'")[1]) == "8":
+                plate_string += "B"
+            else:
+                plate_string += (str(eachPredict[0]).split("'")[1])
+        else:
+            if (str(eachPredict[0]).split("'")[1]) == "D":
+                plate_string += "0"
+            elif (str(eachPredict[0]).split("'")[1]) == "T":
+                plate_string += "1"
+            elif (str(eachPredict[0]).split("'")[1]) == "Z":
+                plate_string += "2"
+            elif (str(eachPredict[0]).split("'")[1]) == "B":
+                plate_string += "8"
+            elif (str(eachPredict[0]).split("'")[1]) == "S":
+                plate_string += "5"
+            else:
+                plate_string += (str(eachPredict[0]).split("'")[1])
+
+        j = j + 1
+    # Nome da pasta da placa + a placa que foi reconhecida
     print(folder.split("/")[3] + '\t' + plate_string + "\n\n")
